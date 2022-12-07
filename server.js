@@ -27,6 +27,12 @@ if (process.env.NODE_ENV === 'production') {
   app.use(cors(corsOptions))
 }
 
+const authRoutes = require('./api/auth/auth.routes')
+const userRoutes = require('./api/user/user.routes')
+
+app.use('/api/auth', authRoutes)
+app.use('/api/user', userRoutes)
+
 const port = process.env.PORT || 3030
 app.get('/**', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
