@@ -29,10 +29,12 @@ if (process.env.NODE_ENV === 'production') {
 
 const authRoutes = require('./api/auth/auth.routes')
 const userRoutes = require('./api/user/user.routes')
+const sessionRoutes = require('./api/session/session.routes')
 const codeblockRoutes = require('./api/codeblock/codeblock.routes')
 
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/session', sessionRoutes)
 app.use('/api/codeblock', codeblockRoutes)
 
 const port = process.env.PORT || 3030
