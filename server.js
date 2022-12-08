@@ -31,11 +31,13 @@ const authRoutes = require('./api/auth/auth.routes')
 const userRoutes = require('./api/user/user.routes')
 const sessionRoutes = require('./api/session/session.routes')
 const codeblockRoutes = require('./api/codeblock/codeblock.routes')
+const { setupSocketAPI } = require('./services/socket.service')
 
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/session', sessionRoutes)
 app.use('/api/codeblock', codeblockRoutes)
+setupSocketAPI(http)
 
 const port = process.env.PORT || 3030
 app.get('/**', (req, res) => {

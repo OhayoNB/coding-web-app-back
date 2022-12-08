@@ -1,9 +1,11 @@
 const codeblockService = require('./codeblock.service.js')
 const logger = require('../../services/logger.service')
+const { broadcast } = require('../../services/socket.service.js')
 
 module.exports = {
   getCodeblocks,
   getCodeblockById,
+  updateCodeblock,
 }
 
 // GET LIST
@@ -27,5 +29,24 @@ async function getCodeblockById(req, res) {
   } catch (err) {
     logger.error('Failed to get codeblock', err)
     res.status(500).send({ err: 'Failed to get codeblock' })
+  }
+}
+
+// PUT
+async function updateCodeblock(req, res) {
+  try {
+    const codeblock = req.body
+    const updatedCodeblock = await codeblockService.update(codeblock)
+
+    broadcast({
+      type: 'update-codeblock',
+      data: updatedCodeblock,
+      room: updatedCodeblock._id,
+    })
+
+    res.json(updatedCodeblock)
+  } catch (err) {
+    logger.error('Failed to update codeblock', err)
+    res.status(500).send({ err: 'Failed to update codeblock' })
   }
 }

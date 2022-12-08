@@ -7,7 +7,7 @@ module.exports = {
 }
 
 // Database Name
-const dbName = 'coding_app_db'
+const dbName = 'coding_db'
 
 var dbConn = null
 

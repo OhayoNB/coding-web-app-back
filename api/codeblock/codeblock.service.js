@@ -5,6 +5,7 @@ const ObjectId = require('mongodb').ObjectId
 module.exports = {
   query,
   getCodeblockById,
+  update,
 }
 
 async function query() {
@@ -25,6 +26,21 @@ async function getCodeblockById(codeblockId) {
     return codeblock
   } catch (err) {
     logger.error(`while finding codeblock ${codeblockId}`, err)
+    throw err
+  }
+}
+
+async function update(codeblock) {
+  try {
+    let codeblockId = codeblock._id
+    let id = ObjectId(codeblock._id)
+    delete codeblock._id
+    const collection = await dbService.getCollection('codeblock')
+    await collection.updateOne({ _id: id }, { $set: { ...codeblock } })
+    codeblock._id = codeblockId
+    return codeblock
+  } catch (err) {
+    logger.error(`cannot update codeblock ${codeblockId}`, err)
     throw err
   }
 }
