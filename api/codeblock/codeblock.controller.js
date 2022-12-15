@@ -37,7 +37,6 @@ async function updateCodeblock(req, res) {
   try {
     const codeblock = req.body
     const updatedCodeblock = await codeblockService.update(codeblock)
-    console.log('updateddddddddddddddddddddd', updatedCodeblock)
 
     broadcast({
       type: 'update-codeblock',

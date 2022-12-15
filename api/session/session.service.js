@@ -19,7 +19,6 @@ async function getSessionById(sessionId) {
 }
 
 async function add(session) {
-  console.log('add ~ session', session)
   try {
     const collection = await dbService.getCollection('session')
     await collection.insertOne(session)
